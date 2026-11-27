@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f5f7ff">
+<title>El aula desde mi pupitre</title>
+<style>
+:root{
+  --ink:#202947; --muted:#65708b; --blue:#5367d9; --blue2:#7485f0;
+  --teal:#20a995; --coral:#f27d75; --gold:#f2b84b; --paper:#ffffff;
+  --line:#e8ebf5; --bg:#f3f5fc; --shadow:0 18px 55px rgba(37,48,93,.12);
+}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:
+ radial-gradient(circle at 10% 10%,rgba(116,133,240,.15),transparent 27rem),
+ radial-gradient(circle at 90% 85%,rgba(32,169,149,.12),transparent 25rem),var(--bg);
+ color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+button{font:inherit}
+.app{width:min(100%,1000px);margin:0 auto;padding:24px 18px 38px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.01em}
+.brand-mark{display:grid;place-items:center;width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,var(--blue),var(--teal));color:white;font-size:20px;box-shadow:0 8px 18px #5367d933}
+.phase{font-size:.78rem;font-weight:750;color:var(--blue);background:#e9edff;padding:9px 13px;border-radius:999px}
+.shell{background:rgba(255,255,255,.94);border:1px solid #fff;border-radius:28px;box-shadow:var(--shadow);overflow:hidden}
+.hero{padding:clamp(25px,5vw,54px);background:linear-gradient(125deg,#eef1ff 0%,#f4fbfa 58%,#fff6ed 100%);position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;width:230px;height:230px;border-radius:50%;right:-70px;top:-90px;background:linear-gradient(135deg,#5367d922,#20a99522)}
+.eyebrow{font-size:.76rem;text-transform:uppercase;letter-spacing:.13em;font-weight:800;color:var(--teal);margin:0 0 13px}
+h1{font-size:clamp(2rem,5.5vw,3.8rem);line-height:1.04;letter-spacing:-.045em;margin:0 0 16px;max-width:700px}
+.lead{font-size:clamp(1rem,2vw,1.14rem);line-height:1.7;color:#4d5875;max-width:760px;margin:0}
+.content{padding:clamp(22px,4vw,42px)}
+.section-kicker{font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;color:var(--teal);font-weight:850;margin:0 0 9px}
+h2{font-size:clamp(1.45rem,3.5vw,2.25rem);line-height:1.15;letter-spacing:-.03em;margin:0 0 16px}
+h3{font-size:1.3rem;line-height:1.25;margin:0 0 12px}
+p{line-height:1.75;color:#4e5873;margin:0 0 15px}
+strong{color:#263253}
+.phase-row{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:22px 0 28px}
+.phase-card{background:#f7f8fd;border:1px solid var(--line);border-radius:16px;padding:13px 10px;text-align:center}
+.phase-card b{display:block;font-size:.84rem;margin:5px 0 3px}
+.phase-card span{font-size:.74rem;color:var(--muted)}
+.phase-icon{font-size:1.25rem}
+.story-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+.story-card{border:1px solid var(--line);border-radius:20px;padding:19px;background:white;display:flex;flex-direction:column;min-height:220px;box-shadow:0 7px 20px rgba(37,48,93,.045)}
+.story-number{width:38px;height:38px;border-radius:13px;display:grid;place-items:center;font-weight:900;margin-bottom:14px}
+.story-card:nth-child(1) .story-number{background:#e9edff;color:var(--blue)}
+.story-card:nth-child(2) .story-number{background:#e3f7f3;color:#148875}
+.story-card:nth-child(3) .story-number{background:#fff0e8;color:#d46d48}
+.story-card h3{font-size:1.08rem}
+.story-card p{font-size:.9rem;line-height:1.55;flex:1}
+.btn{border:0;border-radius:14px;padding:13px 17px;font-weight:800;cursor:pointer;transition:transform .16s,box-shadow .16s,background .16s}
+.btn:hover{transform:translateY(-2px)}
+.btn:focus-visible{outline:3px solid #f2b84b;outline-offset:3px}
+.btn-primary{background:linear-gradient(135deg,var(--blue),var(--blue2));color:white;box-shadow:0 8px 18px #5367d933}
+.btn-soft{background:#eef1ff;color:var(--blue)}
+.btn-plain{background:#f5f6fa;color:#4f5a76}
+.btn-choice{width:100%;text-align:left;background:#fff;border:1px solid var(--line);padding:17px 18px;border-radius:17px;margin:8px 0;color:var(--ink);display:flex;gap:13px;align-items:flex-start}
+.btn-choice:hover{border-color:#aab4f5;background:#f8f9ff;box-shadow:0 8px 22px #5367d914}
+.letter{flex:0 0 30px;height:30px;border-radius:10px;background:#edf0ff;color:var(--blue);display:grid;place-items:center;font-weight:900}
+.choice-text{line-height:1.5;font-weight:700}
+.story-label{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;font-weight:850;color:var(--blue);background:#eef1ff;padding:8px 12px;border-radius:999px;margin-bottom:17px}
+.scenario{background:#f8f9fd;border:1px solid var(--line);border-radius:18px;padding:20px;margin:18px 0}
+.callout{border-left:4px solid var(--teal);background:#effaf7;padding:16px 18px;border-radius:0 15px 15px 0;margin:18px 0}
+.callout p{margin:0}
+.feedback{border-radius:20px;padding:22px;margin:18px 0;background:linear-gradient(135deg,#eef1ff,#f1fbf8);border:1px solid #e1e7ff}
+.feedback.bad{background:linear-gradient(135deg,#fff4ef,#fff9ee);border-color:#f8e4d7}
+.feedback.good{background:linear-gradient(135deg,#eaf9f4,#f1f8ff);border-color:#d9eee7}
+.question{font-weight:800;color:#263253;margin-top:13px}
+.agreement-list{list-style:none;padding:0;margin:20px 0}
+.agreement-list li{padding:16px 17px;border:1px solid var(--line);border-radius:15px;margin:10px 0;background:#fbfcff;color:#4e5873;line-height:1.6}
+.agreement-list strong{display:block;margin-bottom:3px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:25px}
+.progress-wrap{height:7px;background:#edf0f7;border-radius:99px;overflow:hidden;margin:0 0 22px}
+.progress{height:100%;background:linear-gradient(90deg,var(--blue),var(--teal));border-radius:99px;transition:width .25s}
+.footer{display:flex;justify-content:space-between;gap:12px;color:#8991a7;font-size:.76rem;padding:16px 4px 0}
+.hidden{display:none!important}
+@media(max-width:700px){.story-grid{grid-template-columns:1fr}.story-card{min-height:0}.phase-row{grid-template-columns:repeat(2,1fr)}.topbar{align-items:flex-start}.phase{font-size:.7rem}.app{padding:14px 11px 25px}.content{padding:22px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand"><div class="brand-mark">✦</div><span>Experiencia de inclusión</span></div>
+    <div class="phase" id="phaseBadge">RECORRIDO INTERACTIVO</div>
+  </header>
+  <main class="shell">
+    <section id="view"></section>
+  </main>
+  <footer class="footer"><span>El aula desde mi pupitre</span><span>Simulador educativo · Docente titular y USAER</span></footer>
+</div>
+<script>
+const stories = [
+{
+ id:"H1", title:"Historia 1. Instrucciones para todos",
+ intro:"Durante una actividad de Español, la docente pide al grupo abrir el libro, leer las indicaciones y responder cinco preguntas. Explica la actividad una sola vez y comienza a revisar. Observas que un alumno mira a sus compañeros para saber qué hacer, comienza a escribir y después se distrae. Cuando la docente se acerca, pregunta nuevamente qué debe realizar.",
+ barrier:"La dificultad para seguir instrucciones puede relacionarse con la atención, pero también con la forma en que se presenta la actividad: una consigna general, con varios pasos y sin apoyos para recordarla.",
+ choices:[
+  {letter:"A",text:"Le digo que ponga atención y escuche cuando la maestra explica",title:"Decidiste pedirle que ponga atención",feedback:"El alumno puede intentar comenzar, pero la actividad continúa presentándose de la misma manera. La respuesta coloca toda la responsabilidad en él y no modifica la posible barrera.",question:"¿Decirle que ponga atención le explica qué debe hacer? ¿Qué cambio en la enseñanza podría ayudarle?",kind:"bad"},
+  {letter:"B",text:"Repito exactamente la misma instrucción, pero más fuerte",title:"Decidiste repetir la instrucción",feedback:"El alumno vuelve a escuchar la consigna, pero esta sigue teniendo varios pasos y no cuenta con una guía para recordar la secuencia. Repetir puede ayudar, aunque no siempre es suficiente si se mantiene la misma forma de presentar la información.",question:"¿Qué otra forma de presentar la instrucción permitiría comprenderla y recordarla mejor?",kind:"bad"},
+  {letter:"C",text:"Divido la indicación en pasos breves y agrego apoyos visuales",title:"Decidiste dividir la indicación y usar apoyos visuales",feedback:"La actividad se presenta en pasos concretos: 1) abre el libro, 2) lee el texto, 3) responde la primera pregunta. Puedes acompañar cada paso con una imagen, palabra clave o lista que el alumno consulte. Así se ofrecen distintas formas de acceder a la información y se facilita que sepa qué hacer y qué sigue.",question:"¿Cómo comprobarías si este apoyo facilita que el alumno inicie y termine la actividad?",kind:"good"}
+ ],
+ reflection:"Una dificultad para seguir instrucciones no debe atribuirse automáticamente a falta de interés o esfuerzo. Es importante observar cómo se dan las consignas, cuántos pasos incluyen, cuánto tiempo se ofrece y qué apoyos están disponibles. Desde el DUA, presentar la información de distintas maneras y organizar las tareas en pasos claros puede favorecer el acceso y la participación.",
+ key:"¿Qué parte de la actividad podemos modificar para que la consigna sea más clara y accesible?",
+ agreement:[
+  ["Acción","Presentar instrucciones breves, secuenciadas y acompañadas de apoyos visuales."],
+  ["Responsables","La docente titular las incorpora en la actividad; USAER orienta y propone apoyos a partir de las necesidades observadas."],
+  ["Seguimiento","Revisar durante la semana si el alumno comprende la consigna, inicia la tarea y requiere menos repeticiones."]
+ ],
+ note:"El acuerdo debe ajustarse al contexto real del grupo y revisarse con evidencias de lo que ocurre en el aula."
+},
+{
+ id:"H2", title:"Historia 2. Una actividad, distintas formas de aprender",
+ intro:"En Matemáticas, la docente escribe un problema en el pizarrón, lo lee una vez y pide a todos resolverlo individualmente en el mismo tiempo. No utiliza dibujos, material concreto ni ejemplos de los pasos. Un alumno observa el problema durante varios minutos, no identifica qué operación realizar y comienza a copiar a un compañero. Otros estudiantes también preguntan qué significa el problema.",
+ barrier:"La actividad ofrece una sola forma de presentar la información y resolverla. Esto puede convertirse en una barrera didáctica para quienes necesitan distintas representaciones para comprender.",
+ choices:[
+  {letter:"A",text:"Mantengo la actividad igual para que todos trabajen bajo las mismas condiciones",title:"Decidiste mantener la actividad sin cambios",feedback:"Todos reciben la misma consigna, pero no necesariamente cuentan con las mismas oportunidades para comprenderla. La igualdad en la presentación no garantiza que todos puedan acceder al aprendizaje.",question:"¿Ofrecer exactamente lo mismo es suficiente cuando existen distintas necesidades y formas de aprender?",kind:"bad"},
+  {letter:"B",text:"Resuelvo el problema por el alumno para que pueda terminar",title:"Decidiste resolver el problema por el alumno",feedback:"El alumno puede terminar, pero tiene pocas oportunidades de comprender el procedimiento y resolver problemas similares por sí mismo. La ayuda sustituye su participación en lugar de facilitarla.",question:"¿Cómo puedes brindar apoyo sin hacer la tarea en lugar del alumno?",kind:"bad"},
+  {letter:"C",text:"Presento un ejemplo visual y permito usar material concreto o dibujos",title:"Decidiste diversificar la presentación y los recursos",feedback:"La docente muestra un ejemplo paso a paso, representa las cantidades con dibujos y permite utilizar fichas, tapas u otro material concreto. El alumno puede elegir el apoyo que le ayude a comprender y explicar cómo llegó a su respuesta. Se ofrecen distintas maneras de representar la información sin eliminar el propósito de aprendizaje.",question:"¿Qué apoyos facilitaron la comprensión? ¿Cómo mantienes el propósito de aprendizaje con distintas formas de participación?",kind:"good"}
+ ],
+ reflection:"Una actividad homogénea puede limitar la participación cuando solo permite una manera de acceder a la información o demostrar lo aprendido. Diversificar no significa bajar las expectativas, sino ofrecer apoyos y alternativas para alcanzar el propósito. El DUA propone múltiples formas de representación, acción y expresión, e implicación.",
+ key:"¿Qué elementos podemos flexibilizar sin perder el aprendizaje que se busca favorecer?",
+ agreement:[
+  ["Acción","Diseñar una actividad con ejemplo visual, material concreto y posibilidad de representar el procedimiento con dibujos o números."],
+  ["Responsables","La docente titular implementa; USAER colabora en la selección de apoyos y revisión de barreras."],
+  ["Seguimiento","Observar si más estudiantes comprenden el problema, participan y explican el procedimiento con el apoyo elegido."]
+ ],
+ note:"Los apoyos deben responder al propósito de aprendizaje y a las características del grupo, no ser únicamente decorativos."
+},
+{
+ id:"H3", title:"Historia 3. Participar también es aprender",
+ intro:"Durante una actividad grupal, los estudiantes deben leer sus respuestas en voz alta y compartirlas frente al grupo. Un alumno permanece en silencio, evita levantar la mano y deja que sus compañeros respondan por él. La docente interpreta que no quiere participar y continúa. No se han explorado otras maneras para que comparta sus ideas.",
+ barrier:"La dinámica propone una única forma de participación: hablar frente a todo el grupo. Esto puede convertirse en una barrera si no se consideran otras maneras de comunicar o responder.",
+ choices:[
+  {letter:"A",text:"Le pido que participe frente a todos para que pierda el miedo",title:"Decidiste pedirle que hable frente a todos",feedback:"La participación se exige, pero no se modifica la dinámica ni se exploran las razones por las que el alumno permanece en silencio. Esto puede generar presión y no garantiza que logre expresar sus ideas.",question:"¿Participar significa necesariamente hablar frente a todo el grupo?",kind:"bad"},
+  {letter:"B",text:"Permito que sus compañeros respondan siempre por él",title:"Decidiste dejar que otros respondan por él",feedback:"La actividad continúa, pero el alumno pierde oportunidades de expresar sus ideas y formar parte del intercambio. La ayuda de sus compañeros puede ser valiosa siempre que no sustituya su voz.",question:"¿Cómo pueden apoyarlo sus compañeros sin hablar en su lugar?",kind:"bad"},
+  {letter:"C",text:"Ofrezco alternativas para participar y acuerdo apoyos con el alumno",title:"Decidiste ofrecer distintas formas de participación",feedback:"El alumno puede compartir primero su respuesta con una pareja, señalar una opción, mostrar un dibujo o leer una frase breve cuando se sienta preparado. La docente conversa con él para conocer qué alternativa le resulta cómoda y significativa. Así se amplían las oportunidades de participar sin asumir que el silencio significa desinterés.",question:"¿Qué alternativa permitió que el alumno expresara lo que sabe y cómo puedes darle continuidad?",kind:"good"}
+ ],
+ reflection:"La participación puede expresarse de distintas maneras. Antes de interpretar el silencio como falta de interés, es importante conocer al alumno, observar las condiciones de la actividad y ofrecer oportunidades accesibles para expresar sus ideas. El DUA invita a ofrecer diferentes medios de acción y expresión y a cuidar la implicación del alumnado.",
+ key:"¿Qué cambios permitirían que el alumno participe sin ser obligado a hacerlo de una sola manera?",
+ agreement:[
+  ["Acción","Incorporar distintas formas de responder y participar: conversación en parejas, respuestas escritas, dibujos, selección de opciones o intervenciones orales voluntarias."],
+  ["Responsables","La docente titular ofrece alternativas durante la clase; USAER acompaña la identificación de barreras y propone estrategias."],
+  ["Seguimiento","Registrar qué alternativas utiliza el alumno, cuáles le resultan más accesibles y si aumenta su participación."]
+ ],
+ note:"Consultar al alumno y observar sus respuestas ayuda a evitar decisiones basadas únicamente en suposiciones."
+}
+];
+
+const view = document.getElementById("view");
+const phaseBadge = document.getElementById("phaseBadge");
+let currentStory = null;
+let currentChoice = null;
+
+function setPhase(text){phaseBadge.textContent=text}
+function button(label, cls, action){const b=document.createElement("button");b.className="btn "+cls;b.textContent=label;b.addEventListener("click",action);return b}
+function render(html){view.innerHTML=html;window.scrollTo({top:0,behavior:"smooth"})}
+function progress(n){return `<div class="progress-wrap"><div class="progress" style="width:${n}%"></div></div>`}
+function start(){
+ currentStory=null;currentChoice=null;setPhase("RECORRIDO INTERACTIVO");
+ render(`<div class="hero"><p class="eyebrow">Simulador · Inclusión educativa</p><h1>El aula desde mi pupitre</h1><p class="lead"><strong>Simulador para reconocer barreras didácticas y fortalecer la colaboración entre el docente titular y USAER.</strong></p></div>
+ <div class="content"><p>En este recorrido asumirás el papel de una persona que observa y toma decisiones dentro del aula. Lee cada escenario, elige cómo actuarías y revisa las consecuencias. El propósito no es encontrar culpables, sino identificar qué se puede transformar en la enseñanza y cómo colaborar.</p>
+ <p><strong>Las cuatro fases:</strong> Conozco (identifico la situación), Decido (elijo una respuesta), Reflexiono (analizo sus efectos) y Acordamos (planteo una acción compartida).</p>
+ <div class="phase-row"><div class="phase-card"><div class="phase-icon">🔎</div><b>Conozco</b><span>Identifico la situación</span></div><div class="phase-card"><div class="phase-icon">🧭</div><b>Decido</b><span>Elijo una respuesta</span></div><div class="phase-card"><div class="phase-icon">💭</div><b>Reflexiono</b><span>Analizo sus efectos</span></div><div class="phase-card"><div class="phase-icon">🤝</div><b>Acordamos</b><span>Propongo una acción</span></div></div>
+ <h2>Selecciona una historia</h2><div class="story-grid">
+ ${stories.map((s,i)=>`<article class="story-card"><div class="story-number">${String(i+1).padStart(2,"0")}</div><h3>${s.title.replace(/^Historia \d\. /,"")}</h3><p>${["Observa cómo se presentan las consignas y qué apoyos pueden facilitar su comprensión.","Explora distintas maneras de representar la información y resolver una actividad.","Reconoce que participar también puede significar comunicar de diferentes formas."][i]}</p><button class="btn btn-primary" onclick="openStory(${i})">Comenzar historia →</button></article>`).join("")}
+ </div><div class="actions"><button class="btn btn-soft" onclick="showClosing()">Ir al cierre del simulador</button></div></div>`);
+}
+function openStory(i){
+ currentStory=i;currentChoice=null;const s=stories[i];setPhase("FASE 1 · CONOZCO");
+ render(`<div class="content">${progress(15)}<div class="story-label">🔎 CONOZCO · HISTORIA ${i+1} DE 3</div><h2>${s.title}</h2><div class="scenario"><p>${s.intro}</p></div><div class="callout"><p>${s.barrier}</p></div><h3>¿Qué harías?</h3><p>Lee las opciones y selecciona la respuesta que consideres más adecuada.</p><div id="choices">${s.choices.map((c,j)=>`<button class="btn-choice" onclick="choose(${j})"><span class="letter">${c.letter}</span><span class="choice-text">${c.text}</span></button>`).join("")}</div><div class="actions"><button class="btn btn-plain" onclick="start()">← Volver al menú</button></div></div>`);
+}
+function choose(j){
+ currentChoice=j;const s=stories[currentStory],c=s.choices[j];setPhase("FASE 2 · DECIDO");
+ render(`<div class="content">${progress(42)}<div class="story-label">🧭 DECIDO · ${s.title}</div><div class="feedback ${c.kind}"><p class="section-kicker">Tu decisión</p><h2>${c.title}</h2><p>${c.feedback}</p><p class="question">Reflexiona: ${c.question}</p></div><p>Cuando estés listo, continúa para analizar la situación desde una perspectiva inclusiva.</p><div class="actions"><button class="btn btn-primary" onclick="reflect()">Continuar a la reflexión →</button><button class="btn btn-plain" onclick="openStory(${currentStory})">Cambiar decisión</button></div></div>`);
+}
+function reflect(){
+ const s=stories[currentStory];setPhase("FASE 3 · REFLEXIONO");
+ render(`<div class="content">${progress(68)}<div class="story-label">💭 REFLEXIONO · ${s.title}</div><h2>Reflexionamos</h2><p>${s.reflection}</p><div class="callout"><p><strong>Pregunta clave:</strong> ${s.key}</p></div><div class="actions"><button class="btn btn-primary" onclick="agreement()">Pasar al acuerdo →</button><button class="btn btn-plain" onclick="start()">Volver al menú</button></div></div>`);
+}
+function agreement(){
+ const s=stories[currentStory];setPhase("FASE 4 · ACORDAMOS");
+ render(`<div class="content">${progress(90)}<div class="story-label">🤝 ACORDAMOS · ${s.title}</div><h2>Acordamos</h2><ul class="agreement-list">${s.agreement.map(a=>`<li><strong>${a[0]}</strong>${a[1]}</li>`).join("")}</ul><p>${s.note}</p><div class="actions"><button class="btn btn-primary" onclick="start()">Volver al menú de historias</button><button class="btn btn-soft" onclick="showClosing()">Finalizar recorrido →</button></div></div>`);
+}
+function showClosing(){
+ setPhase("CIERRE DEL SIMULADOR");
+ render(`<div class="hero"><p class="eyebrow">Cierre del recorrido</p><h1>La inclusión se construye en equipo</h1><p class="lead">Observar, reconocer barreras y construir respuestas compartidas permite transformar las experiencias dentro del aula.</p></div><div class="content">${progress(100)}<h2>Cierre del simulador</h2><p>Las situaciones muestran que algunas barreras no se encuentran únicamente en las características del alumno, sino también en la manera de organizar, presentar y desarrollar las actividades.</p><p>La inclusión requiere observar el contexto, reconocer las barreras y construir respuestas compartidas. La colaboración entre docente titular y USAER no consiste en trasladar toda la responsabilidad a una sola persona, sino en dialogar, acordar estrategias, implementarlas y revisar sus resultados.</p><p>Una estrategia inclusiva no se decide de una vez y para siempre: se observa, se ajusta y se mejora a partir de la participación y el aprendizaje de los estudiantes.</p><div class="actions"><button class="btn btn-primary" onclick="start()">Volver al inicio</button></div></div>`);
+}
+start();
+</script>
+</body>
+</html>
